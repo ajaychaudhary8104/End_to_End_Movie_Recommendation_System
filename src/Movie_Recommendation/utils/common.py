@@ -9,8 +9,6 @@ from ensure import ensure_annotations
 from box import Box
 from pathlib import Path
 from typing import Any
-import base64
-
 
 
 @ensure_annotations

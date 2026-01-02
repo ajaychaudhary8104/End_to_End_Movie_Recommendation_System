@@ -1,0 +1,45 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_01_data_ingestion
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_01_data_ingestion.py
+    outs:
+      - artifacts/data_ingestion
+
+  data_validation:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_02_data_validation
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_02_data_validation.py
+      - artifacts/data_ingestion
+    outs:
+      - artifacts/data_validation
+
+  data_transformation:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_03_data_transformation
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_03_data_transformation.py
+      - artifacts/data_ingestion
+    outs:
+      - artifacts/data_transformation
+
+  model_trainer:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_04_model_trainer
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_04_model_trainer.py
+      - artifacts/data_transformation
+    params:
+      - TrainingArguments.n_epochs
+      - TrainingArguments.lr
+      - TrainingArguments.wd
+    outs:
+      - artifacts/model_trainer
+
+  model_evaluation:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_05_model_evaluation
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_05_model_evaluation.py
+      - artifacts/model_trainer
+      - artifacts/data_transformation
+    metrics:
+      - artifacts/model_evaluation/metrics.json:
+          cache: false
