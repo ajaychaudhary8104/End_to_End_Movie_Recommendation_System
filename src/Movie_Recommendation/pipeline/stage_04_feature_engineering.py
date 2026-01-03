@@ -14,8 +14,8 @@ class FeatureEngineeringPipeline:
         config = ConfigurationManager()
         feature_engineering_config = config.get_feature_engineering_config()
         feature_engineering = FeatureEngineering(config=feature_engineering_config)
-        feature_engineering.GetSimilarMoviesUsingMovieMovieSimilarity()
-        feature_engineering.Calculate_User_User_Similarity()
+        feature_engineering.GetSimilarMoviesUsingMovieMovieSimilarity("superman",10)
+        feature_engineering.Calculate_User_User_Similarity(138493,10)
         feature_engineering.getUser_UserSimilarity()
         feature_engineering.extract_features()
 

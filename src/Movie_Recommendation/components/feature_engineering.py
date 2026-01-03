@@ -8,8 +8,7 @@ from scipy import sparse
 from thefuzz import fuzz
 from thefuzz import process
 import numpy as np
-from surprise import Dataset
-from surprise import Reader
+from scipy.sparse import coo_matrix
 
 
 class FeatureEngineering:
@@ -197,7 +196,10 @@ class FeatureEngineering:
         movie_id = movie_list_in_training.iloc[matches[0][2]]["movieId"]
         similar_movie_id_list = np.argsort(-m_m_similarity[movie_id].toarray().ravel())[0:num_of_similar_movies+1]
         sm_df = movie_list_in_training[movie_list_in_training["movieId"].isin(similar_movie_id_list)]
-        sm_df["order"] = sm_df.apply(lambda x: list(similar_movie_id_list).index(x["movieId"]), axis=1)
+        order_map = {movie_id: idx for idx, movie_id in enumerate(similar_movie_id_list)}
+        sm_df["order"] = sm_df["movieId"].map(order_map)
+
+        #sm_df["order"] = sm_df.apply(lambda x: list(similar_movie_id_list).index(x["movieId"]), axis=1)
     
         return sm_df.sort_values("order")    
     
@@ -205,9 +207,9 @@ class FeatureEngineering:
     # Here, we are calculating user-user similarity matrix only for first 100 users in our sparse matrix. And we are calculating 
     # Top 100 most similar users with them.
 
-    def getUser_UserSimilarity(self,sparseMatrix, top = 100):
+    def getUser_UserSimilarity(self, top = 100):
         startTimestamp20 = datetime.now()  
-    
+        sparseMatrix, _ =self.create_matrices()
         row_index, col_index = sparseMatrix.nonzero()
         rows = np.unique(row_index)
         similarMatrix = np.zeros(13849300).reshape(138493,100)    # 138493*100 = 13849300. As we are building similarity matrix only 
@@ -230,8 +232,9 @@ class FeatureEngineering:
   
     # Calculating user-user similarity only for particular users in our sparse matrix and return user_ids
 
-    def Calculate_User_User_Similarity(self, sparseMatrix, user_id, num_of_similar_users=10):
+    def Calculate_User_User_Similarity(self, user_id, num_of_similar_users=10):
         TrainUISparseData, TestUISparsedata = self.create_matrices()
+        sparseMatrix = TrainUISparseData
         row_index, col_index = TrainUISparseData.nonzero()
         unique_user_id = np.unique(row_index)
         print("Max User id is :", np.max(unique_user_id)) 
@@ -300,11 +303,13 @@ class FeatureEngineering:
             print("Shape of Test Sample Sparse Matrix = " + str(test_sample_sparse.shape))    
         return train_sample_sparse, test_sample_sparse    
 
-    def CreateFeaturesForTrainData(self,SampledSparseData, TrainSampledSparseData):
+    def CreateFeaturesForTrainData(self, SampledSparseData, TrainSampledSparseData):
 
         startTime = datetime.now()
-        globalAvgRating, globalAvgMovies, globalAvgUsers = self.calculate_global_avg_rating_use()
+        globalAvgRating, globalAvgMovies, globalAvgUsers = self.calculate_global_avg_rating_user()
         # Extracting userId list, movieId list and Ratings
+
+        SampledSparseData = coo_matrix(SampledSparseData)
         sample_users, sample_movies, sample_ratings = sparse.find(SampledSparseData)
     
         print("No. of rows in the returned dataset : ", len(sample_ratings))

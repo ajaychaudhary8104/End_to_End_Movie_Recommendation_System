@@ -22,10 +22,18 @@ stages:
     outs:
       - artifacts/data_transformation
 
-  model_trainer:
-    cmd: python -m src.Movie_Recommendation.pipeline.stage_04_model_trainer
+  feature_engineering:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_04_feature_engineering
     deps:
-      - src/Movie_Recommendation/pipeline/stage_04_model_trainer.py
+      - src/Movie_Recommendation/pipeline/stage_04_feature_engineering.py
+      - artifacts/data_transformation
+    outs:
+      - artifacts/feature_engineering    
+
+  model_trainer:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_05_model_trainer
+    deps:
+      - src/Movie_Recommendation/pipeline/stage_05_model_trainer.py
       - artifacts/data_transformation
     params:
       - TrainingArguments.n_epochs
@@ -35,9 +43,9 @@ stages:
       - artifacts/model_trainer
 
   model_evaluation:
-    cmd: python -m src.Movie_Recommendation.pipeline.stage_05_model_evaluation
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_06_model_evaluation
     deps:
-      - src/Movie_Recommendation/pipeline/stage_05_model_evaluation.py
+      - src/Movie_Recommendation/pipeline/stage_06_model_evaluation.py
       - artifacts/model_trainer
       - artifacts/data_transformation
     metrics:

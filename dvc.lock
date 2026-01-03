@@ -1,0 +1,71 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_01_data_ingestion
+    deps:
+    - path: src/Movie_Recommendation/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: af493d95fb2ef41497c62cadbebd2a0f
+      size: 867
+    outs:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: 4e02cf2ca6942d48213a85a21d26f2a2.dir
+      size: 1074290862
+      nfiles: 8
+  data_validation:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_02_data_validation
+    deps:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: 4e02cf2ca6942d48213a85a21d26f2a2.dir
+      size: 1074290862
+      nfiles: 8
+    - path: src/Movie_Recommendation/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 2c73147db142d9baa1eaf394d6ee84a1
+      size: 830
+    outs:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: 543f4af52a6049691796c40b5114a804.dir
+      size: 21
+      nfiles: 1
+  data_transformation:
+    cmd: python -m 
+      src.Movie_Recommendation.pipeline.stage_03_data_transformation
+    deps:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: 4e02cf2ca6942d48213a85a21d26f2a2.dir
+      size: 1074290862
+      nfiles: 8
+    - path: src/Movie_Recommendation/pipeline/stage_03_data_transformation.py
+      hash: md5
+      md5: 56d3d87a7c2e7256829ebc81192afa02
+      size: 875
+    outs:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: f80287216f66bdae8aca08aab7a5ec93.dir
+      size: 2004533896
+      nfiles: 3
+  feature_engineering:
+    cmd: python -m 
+      src.Movie_Recommendation.pipeline.stage_04_feature_engineering
+    deps:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: f80287216f66bdae8aca08aab7a5ec93.dir
+      size: 2004533896
+      nfiles: 3
+    - path: src/Movie_Recommendation/pipeline/stage_04_feature_engineering.py
+      hash: md5
+      md5: 022f3f1518b86ba0debfb5b00a7c4446
+      size: 1094
+    outs:
+    - path: artifacts/feature_engineering
+      hash: md5
+      md5: b7e8b330a590e36de073cb9097c7cd3e.dir
+      size: 1979798231
+      nfiles: 9
