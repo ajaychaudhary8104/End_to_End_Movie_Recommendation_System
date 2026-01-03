@@ -22,3 +22,10 @@ class DataValidationConfig:
 class DataTransformationConfig:
     root_dir: Path
     data_path: Path
+
+
+@dataclass(frozen=True)
+class FeatureEngineeringConfig:
+    root_dir: Path
+    data_path: Path
+

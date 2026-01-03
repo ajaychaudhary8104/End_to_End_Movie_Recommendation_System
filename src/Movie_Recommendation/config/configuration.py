@@ -3,6 +3,8 @@ from ..utils.common import read_yaml, create_directories
 from ..entity.config_entity import DataIngestionConfig
 from ..entity.config_entity import DataValidationConfig
 from ..entity.config_entity import DataTransformationConfig
+from ..entity.config_entity import FeatureEngineeringConfig
+
 
 class ConfigurationManager:
     def __init__(self, config_filepath = CONFIG_FILE_PATH, params_filepath = PARAMS_FILE_PATH):
@@ -55,3 +57,16 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
+
+    def get_feature_engineering_config(self) -> FeatureEngineeringConfig:
+        config = self.config.feature_engineering
+
+        create_directories([config.root_dir])
+
+        feature_engineering_config = FeatureEngineeringConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+        )
+
+        return feature_engineering_config
