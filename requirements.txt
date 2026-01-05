@@ -1,74 +1,62 @@
-aiohappyeyeballs==2.6.1
-aiohttp==3.13.2
-aiosignal==1.4.0
-asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1763409923949/work
-attrs==25.4.0
-box==0.1.5
-colorama==0.4.6
-Columnar==1.3.1
-comm @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_comm_1753453984/work
-contourpy==1.3.3
-cycler==0.12.1
-debugpy @ file:///D:/bld/bld/rattler-build_debugpy_1765840830/work
-decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1740384970518/work
+# =============================
+# Project Requirements
+# =============================
+# Python Version Compatibility
+# -----------------------------
+# Python >= 3.9 and < 3.12
+# Reason:
+# - scikit-surprise is NOT compatible with Python 3.12 yet
+# - Tested and stable on Python 3.9, 3.10, 3.11
+
+# -----------------------------
+# Core Scientific Stack
+# -----------------------------
+numpy==1.26.4        # Compatible with Python 3.9–3.11
+pandas==2.1.4        # Stable with numpy 1.26.x
+
+# -----------------------------
+# Machine Learning & Recommenders
+# -----------------------------
+scikit-learn==1.3.2  # Compatible with numpy 1.26.x
+scikit-surprise==1.1.4  # Requires Python < 3.12
+
+# -----------------------------
+# Scientific Computing
+# -----------------------------
+scipy==1.11.4        # Compatible with scikit-learn 1.3.x
+
+# -----------------------------
+# Experiment Tracking & MLOps
+# -----------------------------
+mlflow==2.9.2
+dvc==3.38.1
+joblib==1.3.2
+
+# -----------------------------
+# Visualization & Notebooks
+# -----------------------------
+matplotlib==3.8.2
+seaborn==0.13.0
+notebook==7.0.6
+
+# -----------------------------
+# API & Serving
+# -----------------------------
+Flask==3.0.0
+Flask-Cors==4.0.0
+fastapi==0.109.0
+uvicorn==0.27.0
+
+# -----------------------------
+# Utilities
+# -----------------------------
+python-box==7.1.1
+pyYAML==6.0.1
+types-PyYAML==6.0.12.12
+tqdm==4.66.1
 ensure==1.0.4
-executing==0.8.2
-fonttools==4.61.1
-frozenlist==1.8.0
-fuzzywuzzy==0.18.0
-idna==3.11
-iniconfig==2.0.0
-ipykernel @ file:///D:/bld/bld/rattler-build_ipykernel_1761567966/work
-ipython==9.6.0
-ipython_pygments_lexers @ file:///home/conda/feedstock_root/build_artifacts/ipython_pygments_lexers_1737123620466/work
-jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1733300866624/work
-joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1765794027227/work
-jupyter_client @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_jupyter_client_1765375773/work
-jupyter_core @ file:///D:/bld/bld/rattler-build_jupyter_core_1760643889/work
-kiwisolver==1.4.9
-loguru==0.7.3
-matplotlib==3.10.8
-matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1761214490209/work
-multidict==6.7.0
-nest_asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1733325553580/work
-numpy==2.4.0
-packaging==24.1
-pandas==2.3.3
-parso @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_parso_1755974222/work
-pillow==12.0.0
-platformdirs @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_platformdirs_1764950726/work
-pluggy==1.5.0
-prompt_toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1756321756983/work
-propcache==0.4.1
-psutil @ file:///D:/bld/bld/rattler-build_psutil_1767012412/work
-pure_eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1733569405015/work
-pygame==2.6.0
-Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1750615794071/work
-pyparsing==3.3.1
-pytest==8.3.3
-python-box==7.3.2
-python-dateutil==2.8.2
-pytz==2025.2
-pywin32 @ file:///D:/bld/bld/rattler-build_pywin32_1756487136/work
-PyYAML==6.0.3
-pyzmq @ file:///D:/bld/bld/rattler-build_pyzmq_1757387025/work
-RapidFuzz==3.14.3
-scikit-learn==1.8.0
-scikit-surprise @ file:///D:/bld/scikit-surprise_1716198946292/work
-scipy @ file:///C:/bld/scipy-split_1766107279379/work/dist/scipy-1.16.3-cp312-cp312-win_amd64.whl#sha256=172ba5e682547023a4458f6823bb41b0944073cf98a44450929df2f90bfda1e1
-seaborn==0.13.2
-setuptools==80.9.0
-six @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_six_1753199211/work
-stack-data==0.5.1
-thefuzz==0.22.1
-threadpoolctl==3.6.0
-timeago==1.0.14
-toolz==1.1.0
-tornado @ file:///D:/bld/tornado_1765836408115/work
-traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1733367359838/work
-typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_typing_extensions_1756220668/work
-tzdata==2025.3
-wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1758622279606/work
-wheel==0.45.1
-win32_setctime==1.2.0
-yarl==1.22.0
+
+# -----------------------------
+# Local Package
+# -----------------------------
+-e .

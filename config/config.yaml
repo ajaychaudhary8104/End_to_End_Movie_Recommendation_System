@@ -32,3 +32,10 @@ data_transformation:
 feature_engineering:
   root_dir: artifacts/Feature_engineering
   data_path: artifacts/data_transformation  
+
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  trained_model_path: artifacts/model_trainer/model.joblib
+  data_path: artifacts/Feature_engineering
+

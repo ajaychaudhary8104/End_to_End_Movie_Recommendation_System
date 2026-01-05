@@ -29,3 +29,11 @@ class FeatureEngineeringConfig:
     root_dir: Path
     data_path: Path
 
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    trained_model_path: Path
+    data_path: Path
+    n_factors : int
+    lr_all : float
+    verbose : bool

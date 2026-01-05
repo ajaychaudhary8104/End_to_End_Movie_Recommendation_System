@@ -28,17 +28,17 @@ stages:
       - src/Movie_Recommendation/pipeline/stage_04_feature_engineering.py
       - artifacts/data_transformation
     outs:
-      - artifacts/feature_engineering    
+      - artifacts/Feature_engineering    
 
   model_trainer:
     cmd: python -m src.Movie_Recommendation.pipeline.stage_05_model_trainer
     deps:
       - src/Movie_Recommendation/pipeline/stage_05_model_trainer.py
-      - artifacts/data_transformation
+      - artifacts/Feature_engineering
     params:
-      - TrainingArguments.n_epochs
-      - TrainingArguments.lr
-      - TrainingArguments.wd
+      - TrainingArguments.n_factors
+      - TrainingArguments.lr_all
+      - TrainingArguments.verbose
     outs:
       - artifacts/model_trainer
 

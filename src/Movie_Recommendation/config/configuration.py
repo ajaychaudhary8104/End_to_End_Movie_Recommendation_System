@@ -1,6 +1,6 @@
 from ..constants import *
 from ..utils.common import read_yaml, create_directories
-from ..entity.config_entity import DataIngestionConfig
+from ..entity.config_entity import DataIngestionConfig, ModelTrainerConfig
 from ..entity.config_entity import DataValidationConfig
 from ..entity.config_entity import DataTransformationConfig
 from ..entity.config_entity import FeatureEngineeringConfig
@@ -70,3 +70,19 @@ class ConfigurationManager:
         )
 
         return feature_engineering_config
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        tr_arg = self.params.TrainingArguments
+        create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            trained_model_path=config.trained_model_path,
+            data_path=config.data_path,
+            n_factors = tr_arg.n_factors,
+            lr_all = tr_arg.lr_all,
+            verbose = tr_arg.verbose,
+        )
+
+        return model_trainer_config

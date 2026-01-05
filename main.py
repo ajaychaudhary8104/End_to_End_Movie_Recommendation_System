@@ -6,6 +6,7 @@ from src.Movie_Recommendation.pipeline.stage_01_data_ingestion import DataIngest
 from src.Movie_Recommendation.pipeline.stage_02_data_validation import DataValidationPipeline
 from src.Movie_Recommendation.pipeline.stage_03_data_transformation import DataTransformationPipeline
 from src.Movie_Recommendation.pipeline.stage_04_feature_engineering import FeatureEngineeringPipeline
+from src.Movie_Recommendation.pipeline.stage_05_model_trainer import ModelTrainerPipeline
 
 
 STAGE_NAME = "Data Ingestion"
@@ -45,6 +46,17 @@ STAGE_NAME = "Feature Engineering"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
    pipeline = FeatureEngineeringPipeline()
+   pipeline.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+   logger.exception(e)
+   raise e
+
+
+STAGE_NAME = "Model Training"
+try:
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   pipeline = ModelTrainerPipeline()
    pipeline.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:

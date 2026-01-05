@@ -1,4 +1,4 @@
 TrainingArguments:
-  n_epochs: 10
-  lr: 0.01
-  wd: 0.1
+  n_factors: 10
+  lr_all: 0.01
+  verbose: True

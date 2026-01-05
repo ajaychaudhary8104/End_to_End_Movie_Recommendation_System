@@ -64,8 +64,31 @@ stages:
       md5: 022f3f1518b86ba0debfb5b00a7c4446
       size: 1094
     outs:
-    - path: artifacts/feature_engineering
+    - path: artifacts/Feature_engineering
       hash: md5
       md5: b7e8b330a590e36de073cb9097c7cd3e.dir
       size: 1979798231
       nfiles: 9
+  model_trainer:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_05_model_trainer
+    deps:
+    - path: artifacts/Feature_engineering
+      hash: md5
+      md5: b7e8b330a590e36de073cb9097c7cd3e.dir
+      size: 1979798231
+      nfiles: 9
+    - path: src/Movie_Recommendation/pipeline/stage_05_model_trainer.py
+      hash: md5
+      md5: 41767c0bdda951a212ccd8aaf2d2e5cd
+      size: 827
+    params:
+      params.yaml:
+        TrainingArguments.lr_all: 0.01
+        TrainingArguments.n_factors: 10
+        TrainingArguments.verbose: true
+    outs:
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: bb27cdc2bd7f5a3d4e30cb30f214804a.dir
+      size: 2112963
+      nfiles: 1
