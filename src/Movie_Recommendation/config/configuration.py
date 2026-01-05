@@ -1,6 +1,6 @@
 from ..constants import *
 from ..utils.common import read_yaml, create_directories
-from ..entity.config_entity import DataIngestionConfig, ModelTrainerConfig
+from ..entity.config_entity import DataIngestionConfig, ModelEvaluationConfig, ModelTrainerConfig
 from ..entity.config_entity import DataValidationConfig
 from ..entity.config_entity import DataTransformationConfig
 from ..entity.config_entity import FeatureEngineeringConfig
@@ -79,6 +79,7 @@ class ConfigurationManager:
         model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
             trained_model_path=config.trained_model_path,
+            test_data_path=config.test_data_path,
             data_path=config.data_path,
             n_factors = tr_arg.n_factors,
             lr_all = tr_arg.lr_all,
@@ -86,3 +87,20 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            model_path=config.model_path,
+            test_data_path=config.test_data_path,
+            metric_file_name= config.metric_file_name,
+            movies_path= config.movies_path,
+            mlflow_tracking_uri= config.mlflow_tracking_uri,
+            mlflow_experiment_name= config.mlflow_experiment_name,
+        )
+
+        return model_evaluation_config

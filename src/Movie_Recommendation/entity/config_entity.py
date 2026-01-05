@@ -33,7 +33,18 @@ class FeatureEngineeringConfig:
 class ModelTrainerConfig:
     root_dir: Path
     trained_model_path: Path
+    test_data_path: Path
     data_path: Path
     n_factors : int
     lr_all : float
     verbose : bool
+
+@dataclass(frozen=True)    
+class ModelEvaluationConfig:
+    root_dir: Path
+    model_path: Path
+    test_data_path: Path
+    metric_file_name: Path
+    movies_path: Path
+    mlflow_tracking_uri: str
+    mlflow_experiment_name: str

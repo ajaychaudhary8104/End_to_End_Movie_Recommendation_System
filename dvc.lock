@@ -83,12 +83,34 @@ stages:
       size: 827
     params:
       params.yaml:
-        TrainingArguments.lr_all: 0.01
+        TrainingArguments.lr_all: 0.02
         TrainingArguments.n_factors: 10
         TrainingArguments.verbose: true
     outs:
     - path: artifacts/model_trainer
       hash: md5
-      md5: bb27cdc2bd7f5a3d4e30cb30f214804a.dir
-      size: 2112963
-      nfiles: 1
+      md5: b0a0e6ace2a766d3ff2c84b3ca542d7f.dir
+      size: 2274803
+      nfiles: 2
+  model_evaluation:
+    cmd: python -m src.Movie_Recommendation.pipeline.stage_06_model_evaluation
+    deps:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: f80287216f66bdae8aca08aab7a5ec93.dir
+      size: 2004533896
+      nfiles: 3
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: b0a0e6ace2a766d3ff2c84b3ca542d7f.dir
+      size: 2274803
+      nfiles: 2
+    - path: src/Movie_Recommendation/pipeline/stage_06_model_evaluation.py
+      hash: md5
+      md5: 87535834f6cd183ad7f170797be414a3
+      size: 858
+    outs:
+    - path: artifacts/model_evaluation/metrics.json
+      hash: md5
+      md5: 851298f1816365e091cd76797ea46f40
+      size: 68

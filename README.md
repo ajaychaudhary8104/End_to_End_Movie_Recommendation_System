@@ -12,3 +12,17 @@ To modify the pipeline:
 6. Update pipeline stages in `pipeline/` - Update pipeline logic
 7. Update `main.py` - Execute the pipeline
 8. Update `dvc.yaml` - Define DVC pipeline stages
+
+
+### DagsHub Integration
+
+Track experiments on DagsHub:
+
+```bash
+set MLFLOW_TRACKING_URI=<your_dagshub_url>
+set MLFLOW_TRACKING_USERNAME=<your_username>
+set MLFLOW_TRACKING_PASSWORD=<your_password>
+python main.py
+```
+
+---

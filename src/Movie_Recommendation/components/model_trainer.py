@@ -435,8 +435,9 @@ class ModelTrainer:
         print(predictions)
         rmse, mape = self.get_error(predictions)
         print(f"Train RMSE: {rmse}, Train MAPE: {mape}")
-        
+
         joblib.dump(svd_pp, self.config.trained_model_path)
+        joblib.dump(testset, self.config.test_data_path)
         logger.info(f"Trained model saved at {self.config.trained_model_path}")
         logger.info("Training process completed.")
         

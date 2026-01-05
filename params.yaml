@@ -1,4 +1,4 @@
 TrainingArguments:
   n_factors: 10
-  lr_all: 0.01
+  lr_all: 0.02
   verbose: True
